@@ -209,9 +209,9 @@ public class Banca_Investimenti {
 							anni[contAnni] = 1;
 						} else {
 							if (durata == '2') {
-								anni[contAnni] = 2;
+								anni[contAnni] = 5;
 							} else {
-								anni[contAnni] = 3;
+								anni[contAnni] = 10;
 							}
 						}
 
