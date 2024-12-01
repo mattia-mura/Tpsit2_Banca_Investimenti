@@ -88,7 +88,7 @@ public class Banca_Investimenti {
 	 * inserito = true; } } if (!inserito) { anni[contatore] = nuovo; } }
 	 */
 
-	public static void ordinaAnni(int anni[], double returnsHolder[], int tempMesi[], int contatore) {
+	/*public static void ordinaAnni(int anni[], double returnsHolder[], int tempMesi[], int contatore) {
 		boolean ordinato;
 		int pos = 0;
 
@@ -112,16 +112,16 @@ public class Banca_Investimenti {
 			contatore = pos + 1;
 		} while (!ordinato);
 
-	}
+	}*/
 
-	public static void visualizzaVettori(int anni[], double returnsHolder[], int tempMesi[], int contatore) {
+	/*public static void visualizzaVettori(int anni[], double returnsHolder[], int tempMesi[], int contatore) {
 
 		for (int j = 0; j < contatore; j++) {
 			System.out.println("Annni " + (j + 1) + ": " + anni[j]);
 			System.out.println("ReturnsHolder " + (j + 1) + ": " + returnsHolder[j]);
 			System.out.println("TempMesi " + (j + 1) + ": " + tempMesi[j]);
 		}
-	}
+	}*/
 
 	public static void informazioniInvestimento() {
 
@@ -134,7 +134,7 @@ public class Banca_Investimenti {
 		int nMaxInvestimenti = 5;
 		double returnsHolder[] = new double[nMaxInvestimenti];
 		int anni[] = new int[nMaxInvestimenti]; // durate degli investimenti
-		int tempMesi[] = new int[120]; // mi serve per tenere traccia dell'inizio di ogni investimento
+		int tempMesi[] = new int[nMaxInvestimenti]; // mi serve per tenere traccia dell'inizio di ogni investimento
 		int contAnni = 0;
 
 		do {
@@ -330,8 +330,8 @@ public class Banca_Investimenti {
 						tempMesi[contAnni] = mesi;
 						returnsHolder[contAnni] = capitale;
 						contAnni++;
-						ordinaAnni(anni, returnsHolder, tempMesi, contAnni);
-						visualizzaVettori(anni, returnsHolder, tempMesi, contAnni);
+						//ordinaAnni(anni, returnsHolder, tempMesi, contAnni);
+						//visualizzaVettori(anni, returnsHolder, tempMesi, contAnni);
 
 						// tempMesi[contAnni - 1] = mesi;
 					} // if
@@ -361,8 +361,34 @@ public class Banca_Investimenti {
 
 				portafoglio += 100;
 				mesi++;
+				
+				
+				int i=0;
+				do {
+					i=0;
+					if (mesi - tempMesi[i] == anni[i] * 12) {
+						soldiBanca += returnsHolder[i];
+						for (int j = i; j < contAnni - 1; j++) {
+							anni[j] = anni[j + 1];
+							returnsHolder[j] = returnsHolder[j + 1];
+						}
 
-				while (mesi - tempMesi[0] == anni[0] * 12) {
+						contAnni--;
+
+						System.out.println("E' terminato il periodo del tuo investimento.");
+						char carattere;
+						do {
+							System.out.println(
+									"Vuoi vedere quanto hai ricevuto? (premi 's' per dire \"si\" o 'n' per dire \"no\")");
+							carattere = tastiera.next().charAt(0);
+						} while (carattere != 's' && carattere != 'n');
+						if (carattere == 's') {
+							System.out.println("Risultato dell'investimento: " + returnsHolder[i]);
+						}
+					} else {i++;}
+				} while (i<contAnni);
+
+				/*while (mesi - tempMesi[0] == anni[0] * 12) {
 
 					soldiBanca += returnsHolder[0];
 
@@ -383,7 +409,7 @@ public class Banca_Investimenti {
 					if (carattere == 's') {
 						System.out.println("Risultato dell'investimento: " + capitale);
 					}
-				}
+				}*/
 
 				System.out.println("Premere un tasto per continuare...");
 				new java.util.Scanner(System.in).nextLine();
