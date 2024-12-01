@@ -14,8 +14,7 @@ public class Banca_Investimenti {
 		System.out.println("3. INVESTIRE");
 		System.out.println("4. Visualizzare lo stato del conto in banca");
 		System.out.println("5. Visualizzare lo stato del portafoglio");
-		System.out.println("6. Mese successivo");
-		System.out.println("7. Informazionni sull'investimento\n");
+		System.out.println("6. Mese successivo\n");
 
 		System.out.println("0. Esci.");
 	}
@@ -60,71 +59,17 @@ public class Banca_Investimenti {
 			int rangePerdita[]) {
 
 		int probabilita = (int) (Math.random() * 100 + 1);
-		System.out.println("Probabilita: " + probabilita);
 
 		if (probabilita <= probabilitaGuadagno) {
 			int percentualeGuadagno = (int) (Math.random() * (rangeGuadagno[1] - rangeGuadagno[0] + 1)
 					+ rangeGuadagno[0]);
-			System.out.println("Percentuale Guadagno: " + percentualeGuadagno);
 			capitale *= 1 + (double) percentualeGuadagno / 100;
-			System.out.println("Capitale Guadagno: " + capitale);
 		} else {
 			int percentualePerdita = (int) (Math.random() * (rangePerdita[1] - rangePerdita[0] + 1) + rangePerdita[0]);
-			System.out.println("Percentuale perdita: " + percentualePerdita);
 			capitale *= 1 - (double) percentualePerdita / 100;
-			System.out.println("Capitale Perdita: " + capitale);
 		}
-		System.out.println("Capitale: " + capitale);
 
 		return capitale;
-	}
-
-	/*
-	 * public static void ordinaAnni(int anni[], int contatore, int nuovo) { boolean
-	 * inserito = false;
-	 * 
-	 * for (int i=0; (i<contatore) && (!inserito); i++) { if (nuovo < anni[i]) { for
-	 * (int j=contatore-1; j >= i; j--) { anni[j+1] = anni[j]; } anni[i] = nuovo;
-	 * inserito = true; } } if (!inserito) { anni[contatore] = nuovo; } }
-	 */
-
-	/*public static void ordinaAnni(int anni[], double returnsHolder[], int tempMesi[], int contatore) {
-		boolean ordinato;
-		int pos = 0;
-
-		do {
-			ordinato = true;
-			for (int j = 0; j < contatore - 1; j++) {
-				if (anni[j] > anni[j + 1]) {
-					int temp = anni[j];
-					double temp2 = returnsHolder[j];
-					int temp3 = tempMesi[j];
-					anni[j] = anni[j + 1];
-					returnsHolder[j] = returnsHolder[j + 1];
-					tempMesi[j] = tempMesi[j + 1];
-					anni[j + 1] = temp;
-					returnsHolder[j + 1] = temp2;
-					tempMesi[j + 1] = temp3;
-					ordinato = false;
-					pos = j;
-				}
-			}
-			contatore = pos + 1;
-		} while (!ordinato);
-
-	}*/
-
-	/*public static void visualizzaVettori(int anni[], double returnsHolder[], int tempMesi[], int contatore) {
-
-		for (int j = 0; j < contatore; j++) {
-			System.out.println("Annni " + (j + 1) + ": " + anni[j]);
-			System.out.println("ReturnsHolder " + (j + 1) + ": " + returnsHolder[j]);
-			System.out.println("TempMesi " + (j + 1) + ": " + tempMesi[j]);
-		}
-	}*/
-
-	public static void informazioniInvestimento() {
-
 	}
 
 	public static void main(String[] args) {
@@ -147,7 +92,7 @@ public class Banca_Investimenti {
 				menuPrincipale();
 				System.out.println("Cosa vuoi fare?");
 				scelta = tastiera.next().charAt(0);
-			} while (scelta < '0' || scelta > '7');
+			} while (scelta < '0' || scelta > '6');
 
 			switch (scelta) {
 			case '1': {
@@ -195,7 +140,7 @@ public class Banca_Investimenti {
 					do {
 						ok = true;
 						System.out.println("Quanti soldi desideri prelevare?");
-						// tastiera.nextLine();
+						tastiera.nextLine();
 						String stringa = tastiera.nextLine();
 						stringa.trim();
 						try {
@@ -235,7 +180,7 @@ public class Banca_Investimenti {
 						do {
 							ok = true;
 							System.out.println("Somma da investire: ");
-							// tastiera.nextLine();
+							tastiera.nextLine();
 							String stringa = tastiera.nextLine();
 							stringa.trim();
 							try {
@@ -264,9 +209,9 @@ public class Banca_Investimenti {
 							anni[contAnni] = 1;
 						} else {
 							if (durata == '2') {
-								anni[contAnni] = 5;
+								anni[contAnni] = 2;
 							} else {
-								anni[contAnni] = 10;
+								anni[contAnni] = 3;
 							}
 						}
 
@@ -276,20 +221,19 @@ public class Banca_Investimenti {
 							rischio = tastiera.next().charAt(0);
 						} while (rischio < '1' || rischio > '3');
 
-						int probabilitaGuadagno;
+						int probabilitaGuadagno = 0;
+						int percentualeMinMaxGuadagno[] = new int[2];
+						int percentualeMinMaxPerdita[] = new int[2];
 
 						switch (rischio) {
 						case '1': {
 
 							// Le probabilita' sono in percentuale
 							probabilitaGuadagno = 95;
-							int percentualeMinMaxGuadagno[] = { 5, 10 };
-							int percentualeMinMaxPerdita[] = { 5, 8 };
-
-							capitale = investimento(capitale, probabilitaGuadagno, percentualeMinMaxGuadagno,
-									percentualeMinMaxPerdita);
-
-							System.out.println("capitale: " + capitale);
+							percentualeMinMaxGuadagno[0] = 5;
+							percentualeMinMaxGuadagno[1] = 10;
+							percentualeMinMaxPerdita[0] = 5;
+							percentualeMinMaxPerdita[1] = 8;
 
 							System.out.println("Premere un tasto per continuare...");
 							new java.util.Scanner(System.in).nextLine();
@@ -298,13 +242,10 @@ public class Banca_Investimenti {
 						case '2': {
 
 							probabilitaGuadagno = 60;
-							int percentualeMinMaxGuadagno[] = { 20, 30 };
-							int percentualeMinMaxPerdita[] = { 15, 25 };
-
-							capitale = investimento(capitale, probabilitaGuadagno, percentualeMinMaxGuadagno,
-									percentualeMinMaxPerdita);
-
-							System.out.println("capitale: " + capitale);
+							percentualeMinMaxGuadagno[0] = 20;
+							percentualeMinMaxGuadagno[1] = 30;
+							percentualeMinMaxPerdita[0] = 15;
+							percentualeMinMaxPerdita[1] = 25;
 
 							System.out.println("Premere un tasto per continuare...");
 							new java.util.Scanner(System.in).nextLine();
@@ -313,28 +254,24 @@ public class Banca_Investimenti {
 						case '3': {
 
 							probabilitaGuadagno = 40;
-							int percentualeMinMaxGuadagno[] = { 60, 85 };
-							int percentualeMinMaxPerdita[] = { 50, 125 };
-
-							capitale = investimento(capitale, probabilitaGuadagno, percentualeMinMaxGuadagno,
-									percentualeMinMaxPerdita);
-
-							System.out.println("capitale: " + capitale);
+							percentualeMinMaxGuadagno[0] = 60;
+							percentualeMinMaxGuadagno[1] = 85;
+							percentualeMinMaxPerdita[0] = 50;
+							percentualeMinMaxPerdita[1] = 125;
 
 							System.out.println("Premere un tasto per continuare...");
 							new java.util.Scanner(System.in).nextLine();
 							break;
 						}
 						}
+						capitale = investimento(capitale, probabilitaGuadagno, percentualeMinMaxGuadagno,
+								percentualeMinMaxPerdita);
 
-						tempMesi[contAnni] = mesi;
+						tempMesi[contAnni] = 0;
 						returnsHolder[contAnni] = capitale;
 						contAnni++;
-						//ordinaAnni(anni, returnsHolder, tempMesi, contAnni);
-						//visualizzaVettori(anni, returnsHolder, tempMesi, contAnni);
 
-						// tempMesi[contAnni - 1] = mesi;
-					} // if
+					}
 				}
 
 				System.out.println("Premere un tasto per continuare...");
@@ -361,18 +298,16 @@ public class Banca_Investimenti {
 
 				portafoglio += 100;
 				mesi++;
-				
-				
-				int i=0;
-				do {
-					i=0;
-					if (mesi - tempMesi[i] == anni[i] * 12) {
+
+				for (int i = 0; i < contAnni;) {
+					tempMesi[i]++;
+					if (tempMesi[i] == anni[i] * 12) {
 						soldiBanca += returnsHolder[i];
 						for (int j = i; j < contAnni - 1; j++) {
 							anni[j] = anni[j + 1];
 							returnsHolder[j] = returnsHolder[j + 1];
+							tempMesi[j] = tempMesi[j + 1];
 						}
-
 						contAnni--;
 
 						System.out.println("E' terminato il periodo del tuo investimento.");
@@ -385,37 +320,11 @@ public class Banca_Investimenti {
 						if (carattere == 's') {
 							System.out.println("Risultato dell'investimento: " + returnsHolder[i]);
 						}
-					} else {i++;}
-				} while (i<contAnni);
 
-				/*while (mesi - tempMesi[0] == anni[0] * 12) {
-
-					soldiBanca += returnsHolder[0];
-
-					for (int i = 0; i < contAnni - 1; i++) {
-						anni[i] = anni[i + 1];
-						returnsHolder[i] = returnsHolder[i + 1];
+					} else {
+						i++;
 					}
-
-					contAnni--;
-
-					System.out.println("E' terminato il periodo del tuo investimento.");
-					char carattere;
-					do {
-						System.out.println(
-								"Vuoi vedere quanto hai ricevuto? (premi 's' per dire \"si\" o 'n' per dire \"no\")");
-						carattere = tastiera.next().charAt(0);
-					} while (carattere != 's' && carattere != 'n');
-					if (carattere == 's') {
-						System.out.println("Risultato dell'investimento: " + capitale);
-					}
-				}*/
-
-				System.out.println("Premere un tasto per continuare...");
-				new java.util.Scanner(System.in).nextLine();
-				break;
-			}
-			case '7': {
+				}
 
 				System.out.println("Premere un tasto per continuare...");
 				new java.util.Scanner(System.in).nextLine();
