@@ -33,7 +33,7 @@ public class Banca_Investimenti {
 		System.out.println("3. ALTO");
 	}
 
-	public static boolean depositare(double depositMoney) {
+	/*public static boolean depositare(double depositMoney) {
 
 		if ((depositMoney <= portafoglio) && (depositMoney > 0)) {
 			portafoglio -= depositMoney;
@@ -53,6 +53,23 @@ public class Banca_Investimenti {
 		}
 
 		return false;
+	}*/
+	
+	public static boolean depositPreleva (double money, double confronto) {
+		
+		if ((money <= confronto) && (money > 0)) {
+			portafoglio += money;
+			soldiBanca -= money;
+			return true;
+		}
+		return false;
+		
+	}
+	
+	public static double money (double x) {
+		
+		return x*(-1);
+		
 	}
 
 	public static double investimento(double capitale, int probabilitaGuadagno, int rangeGuadagno[],
@@ -114,8 +131,11 @@ public class Banca_Investimenti {
 							ok = false;
 						}
 					} while (!ok);
+					
+					depositMoney = money(depositMoney);
+					double contoConfronto = portafoglio;
 
-					if (!depositare(depositMoney)) {
+					if (!depositPreleva(depositMoney, contoConfronto)) {
 						System.out.println("Soldi non sufficiente nel portafoglio.");
 						System.out.println("Scegliere una cifra minore o aspettare per il mese successivo.");
 					} else {
@@ -150,8 +170,10 @@ public class Banca_Investimenti {
 							ok = false;
 						}
 					} while (!ok);
+					
+					double contoConfronto = soldiBanca;
 
-					if (!prelevare(withdrawals)) {
+					if (!depositPreleva(withdrawals, contoConfronto)) {
 						System.out.println("Non hai soldi sufficiente in banca.");
 						System.out.println("Prova a diminuire la somma o depositare soldi.");
 					} else {
